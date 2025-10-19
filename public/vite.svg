@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="SmartBundle Favicon - SB Monogram">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#11c5d9"></stop>
+      <stop offset="100%" stop-color="#2463eb"></stop>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="#0b1220"></rect>
+  <!-- S shape -->
+  <path d="M344 150c-20-26-56-42-88-42-62 0-110 37-110 84 0 41 36 60 79 66l36 5c29 4 49 16 49 34 0 23-28 38-64 38-38 0-72-18-90-45" fill="none" stroke="url(#g1)" stroke-width="36" stroke-linecap="round" stroke-linejoin="round"></path>
+  <!-- B shape as two connected loops (right side) -->
+  <path d="M320 132v248m0-248h36c48 0 86 26 86 64s-38 64-86 64h-36m36 0c54 0 98 26 98 64s-44 64-98 64h-36" fill="none" stroke="url(#g1)" stroke-width="36" stroke-linecap="round" stroke-linejoin="round" opacity="0.95"></path>
+</svg>
