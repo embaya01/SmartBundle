@@ -1,15 +1,6 @@
-import type { Bundle } from '../types';
+import type { Bundle, BundleSearchParams } from '../types';
 
-export interface SearchParams {
-  q?: string;
-  priceMin?: number;
-  priceMax?: number;
-  regions?: string[];
-  providers?: string[];
-  tags?: string[];
-  limit?: number;
-  offset?: number;
-}
+export type SearchParams = BundleSearchParams;
 
 export interface FacetSummary {
   regions: string[];

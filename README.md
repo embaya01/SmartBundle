@@ -55,6 +55,11 @@ Swap providers by changing the instantiation in `src/pages/App.tsx`.
 - The ingestion layer architecture (scraper framework, normalization pipeline, scheduling options, observability, security, shared package) is outlined in [`docs/scraper-framework.md`](docs/scraper-framework.md).
 - Execution milestones for the backend/ingestion build-out are tracked in [`docs/backend-roadmap.md`](docs/backend-roadmap.md).
 
+### Ingestion Service (workspace scaffold)
+- Workspace lives in `services/ingest` and currently provides a CLI shell (`npm run ingest:dev`) with `run`, `enqueue`, and `list` commands.
+- Requires a Redis instance (defaults to `127.0.0.1:6379`) to enqueue jobs; configure via `REDIS_*` env vars.
+- Prisma-backed schema (`services/ingest/prisma/schema.prisma`) and persistence stubs are in place; set `DATABASE_URL` and run `npm run prisma:generate -w @smartbundle/ingest` to enable real writes. Scheduler (`npm run ingest:dev -- schedule`) reads `services/ingest/config/sources.yml` (see `.example` file) to enqueue jobs.
+
 ## Search & Filters
 - Text search is case-insensitive over name, provider, and services.
 - Scoring favors prefix matches, then substring matches, then a lightweight Levenshtein distance for fuzzy hits.
@@ -68,3 +73,4 @@ Swap providers by changing the instantiation in `src/pages/App.tsx`.
 
 ## License
 MIT (c) SmartBundle contributors
+

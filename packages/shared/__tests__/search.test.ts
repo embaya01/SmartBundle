@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { runSearch, levenshtein } from './search';
-import type { Bundle } from '../types';
+import { runSearch, levenshtein } from '../src/search';
+import type { Bundle } from '../src/types';
 
 const buildBundle = (overrides: Partial<Bundle>): Bundle => ({
   id: 'default',

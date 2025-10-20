@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import { validateBundles, bundleSchema } from './validation';
-import type { Bundle } from '../types';
+import { validateBundles, bundleSchema } from '../src/validation';
+import type { Bundle } from '../src/types';
 
 describe('bundleSchema', () => {
   it('rejects negative prices', () => {

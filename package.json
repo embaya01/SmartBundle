@@ -3,12 +3,18 @@
     "private":  true,
     "version":  "0.0.0",
     "type":  "module",
+    "workspaces": [
+                    "packages/*",
+                    "services/*"
+                ],
     "scripts":  {
                     "dev":  "vite",
                     "build":  "tsc -b && vite build",
                     "lint":  "eslint .",
                     "preview":  "vite preview",
-                    "test":  "vitest"
+                    "test":  "vitest",
+                    "ingest:dev":  "npm run dev -w @smartbundle/ingest",
+                    "ingest:build":  "npm run build -w @smartbundle/ingest"
                 },
     "dependencies":  {
                          "react":  "^19.1.1",

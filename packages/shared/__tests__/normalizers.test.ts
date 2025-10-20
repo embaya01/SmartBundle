@@ -5,7 +5,7 @@ import {
   formatCurrency,
   formatPrice,
   normalizeSearchText,
-} from './normalizers';
+} from '../src/normalizers';
 
 describe('normalizers', () => {
   it('deduplicates services using canonical names', () => {

@@ -14,7 +14,7 @@
 - Harden analytics delivery with retry/backoff and batching once the REST pipeline is live.
 - Extract shared validation/normalization package (`@smartbundle/shared`) consumed by frontend and ingestion services.
 - Implement ingestion observability stack (structured logging, Prometheus metrics, alerting + dashboards).
-- Execute backend roadmap milestone M1 (monorepo & ingestion scaffold) as defined in `docs/backend-roadmap.md`.
+- Execute backend roadmap milestone M1 (monorepo & ingestion scaffold) as defined in `docs/backend-roadmap.md` (in progress; scheduler + persistence pending).
 
 ## Phase 3 - Future Integrations
 - Implement `RestDataProvider` with real HTTP calls to `/api/bundles/search`, `/api/bundles/:id`, and facet endpoints.
@@ -31,3 +31,4 @@
 - Authored initial REST API contract and PostgreSQL persistence plan (`docs/api-contract.md`).
 - Documented scraper framework architecture, scheduling strategy, observability, and shared validation package plan (`docs/scraper-framework.md`).
 - Produced backend implementation roadmap sequencing milestones M1-M4 (`docs/backend-roadmap.md`).
+- Scaffolded ingestion service workspace with CLI, queue, and normalization stubs (`services/ingest`).

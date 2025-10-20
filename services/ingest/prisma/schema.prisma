@@ -1,0 +1,79 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum BundleBillingCycle {
+  mo
+  yr
+}
+
+enum BundleSource {
+  official
+  carrier
+  partner
+  aggregator
+}
+
+enum IngestionStatus {
+  running
+  success
+  failed
+  partial
+}
+
+model Bundle {
+  id             String             @id
+  name           String
+  services       String[]
+  priceCents     Int                @map("price_cents")
+  currency       String
+  billingCycle   BundleBillingCycle @map("billing_cycle")
+  regions        String[]
+  provider       String
+  link           String
+  tags           String[]
+  summary        String?
+  isActive       Boolean            @default(true) @map("is_active")
+  lastVerifiedAt DateTime?          @map("last_verified_at")
+  source         BundleSource?
+  createdAt      DateTime           @default(now()) @map("created_at")
+  updatedAt      DateTime           @updatedAt @map("updated_at")
+  dataHash       String             @map("data_hash")
+  confidence     Decimal?           @db.Decimal(5, 3)
+  rawPayload     Json?              @map("raw_payload")
+
+  history BundleHistory[]
+
+  @@map("bundles")
+}
+
+model BundleHistory {
+  bundleId     String             @map("bundle_id")
+  capturedAt   DateTime           @map("captured_at")
+  priceCents   Int                @map("price_cents")
+  currency     String
+  billingCycle BundleBillingCycle @map("billing_cycle")
+
+  bundle Bundle @relation(fields: [bundleId], references: [id], onDelete: Cascade)
+
+  @@id([bundleId, capturedAt])
+  @@map("bundle_history")
+}
+
+model IngestionRun {
+  id              String          @id @default(uuid())
+  source          String
+  startedAt       DateTime        @default(now()) @map("started_at")
+  finishedAt      DateTime?       @map("finished_at")
+  status          IngestionStatus
+  errorMessage    String?         @map("error_message")
+  bundlesIngested Int             @default(0) @map("bundles_ingested")
+  bundlesFailed   Int             @default(0) @map("bundles_failed")
+
+  @@map("ingestion_runs")
+}

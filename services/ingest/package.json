@@ -1,0 +1,36 @@
+{
+    "name":  "@smartbundle/ingest",
+    "version":  "0.0.0",
+    "description":  "SmartBundle ingestion workers and scheduler",
+    "license":  "MIT",
+    "type":  "module",
+    "scripts":  {
+                    "dev":  "tsx src/cli.ts --help",
+                    "build":  "tsc -p tsconfig.json",
+                    "start":  "node ./dist/cli.js run",
+                    "lint":  "eslint \"src/**/*.ts\"",
+                    "prisma:generate":  "prisma generate",
+                    "prisma:format":  "prisma format"
+                },
+    "dependencies":  {
+                         "@smartbundle/shared":  "0.0.0",
+                         "bullmq":  "^5.9.1",
+                         "ioredis":  "^5.4.1",
+                         "pino":  "^9.5.0",
+                         "prom-client":  "^15.1.3",
+                         "undici":  "^6.20.1",
+                         "yargs":  "^17.7.2",
+                         "zod":  "^4.1.12",
+                         "nanoid":  "^5.0.7",
+                         "@prisma/client":  "^5.18.0",
+                         "node-cron":  "^3.0.3",
+                         "yaml":  "^2.6.0"
+                     },
+    "devDependencies":  {
+                            "tsx":  "^4.19.0",
+                            "typescript":  "~5.9.3",
+                            "prisma":  "^5.18.0",
+                            "@types/yargs":  "^17.0.32",
+                            "@types/node-cron":  "^3.0.10"
+                        }
+}

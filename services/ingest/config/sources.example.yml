@@ -1,0 +1,14 @@
+# Example sources configuration for SmartBundle ingestion
+sources:
+  spotify-student:
+    schedule: "0 */2 * * *"
+    options:
+      region: US
+      plan: student
+  disney-bundle:
+    schedule: "15 * * * *"
+    options:
+      region: US
+  sample-disabled:
+    schedule: "*/30 * * * *"
+    active: false
