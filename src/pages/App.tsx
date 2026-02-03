@@ -204,6 +204,7 @@ const App = () => {
 
   const [facets, setFacets] = useState<FacetSummary | null>(null);
   const [counts, setCounts] = useState<FilterCounts>(emptyCounts);
+  const [lastUpdatedAt, setLastUpdatedAt] = useState<string | null>(null);
   const [selectedBundle, setSelectedBundle] = useState<Bundle | null>(null);
 
   const filtersKey = useMemo(() => JSON.stringify(filters), [filters]);
@@ -238,6 +239,15 @@ const App = () => {
 
         setFacets(facetData);
         setCounts(computeCounts(allBundleData.items));
+
+        const latest = allBundleData.items
+          .map((bundle) => bundle.lastVerified)
+          .filter((value): value is string => Boolean(value))
+          .map((value) => Date.parse(value))
+          .filter((value) => Number.isFinite(value))
+          .reduce<number | null>((acc, value) => (acc === null || value > acc ? value : acc), null);
+
+        setLastUpdatedAt(latest ? new Date(latest).toISOString() : null);
       } catch (bootstrapError) {
         if (!active) return;
         console.error('Failed to bootstrap data providers', bootstrapError);
@@ -358,6 +368,23 @@ const App = () => {
 
   const summaryText = query ? `Showing results for "${query}"` : `Showing ${total} active bundles`;
 
+  const lastUpdatedLabel = useMemo(() => {
+    if (!lastUpdatedAt) return null;
+
+    try {
+      const date = new Date(lastUpdatedAt);
+      if (Number.isNaN(date.getTime())) return null;
+
+      return new Intl.DateTimeFormat(undefined, {
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+      }).format(date);
+    } catch {
+      return null;
+    }
+  }, [lastUpdatedAt]);
+
   let content: ReactNode;
   if (loading) {
     content = <LoadingShimmer count={DEFAULT_PAGE_SIZE} />;
@@ -439,7 +466,47 @@ const App = () => {
         </div>
       </main>
 
-      <DetailSheet bundle={selectedBundle} open={Boolean(selectedBundle)} onClose={handleCloseDetail} onViewDeal={handleViewDeal} />
+      <footer className="border-t border-slate-200 bg-white/60">
+        <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-6 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-1">
+            <p>
+              <span className="font-semibold text-slate-600">About:</span> SmartBundle is a curated demo for
+              browsing subscription bundles (streaming, music, carrier deals).
+            </p>
+            <p>
+              <span className="font-semibold text-slate-600">Disclaimer:</span> Prices and availability change.
+              Always verify details on the provider site before purchasing.
+              {lastUpdatedLabel ? (
+                <span className="ml-2">Last updated: {lastUpdatedLabel}.</span>
+              ) : null}
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <a
+              href="https://github.com/embaya01/SmartBundle"
+              target="_blank"
+              rel="noreferrer"
+              className="font-semibold text-slate-600 hover:text-slate-900"
+            >
+              GitHub
+            </a>
+            <a
+              href="mailto:hello@smartbundle.app"
+              className="font-semibold text-slate-600 hover:text-slate-900"
+            >
+              Contact
+            </a>
+          </div>
+        </div>
+      </footer>
+
+      <DetailSheet
+        bundle={selectedBundle}
+        open={Boolean(selectedBundle)}
+        onClose={handleCloseDetail}
+        onViewDeal={handleViewDeal}
+      />
     </div>
   );
 };
