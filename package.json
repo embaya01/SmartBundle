@@ -8,7 +8,8 @@
                     "build":  "tsc -b && vite build",
                     "lint":  "eslint .",
                     "preview":  "vite preview",
-                    "test":  "vitest"
+                    "test":  "vitest",
+                    "postbuild": "node scripts/postbuild-gh-pages.mjs"
                 },
     "dependencies":  {
                          "react":  "^19.1.1",

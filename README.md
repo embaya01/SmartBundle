@@ -26,6 +26,15 @@ npm run test    # run unit tests (Vitest)
 npm run preview # preview production build
 ```
 
+## Deploy (GitHub Pages)
+This repo includes a GitHub Actions workflow that builds on pushes to `main` and deploys `dist/` to GitHub Pages.
+
+1) In GitHub: **Settings → Pages**
+2) Set **Source** to **GitHub Actions**
+3) Push/merge to `main` and the site will publish.
+
+Note: `vite.config.ts` sets `base: "/SmartBundle/"` for Pages. If you deploy somewhere else (Vercel/Netlify), remove that.
+
 To forward analytics events to an API endpoint, set `VITE_ANALYTICS_ENDPOINT` in your environment (e.g., `.env`) and the app will switch to the REST analytics provider automatically. Otherwise events are logged to the console and `window.dataLayer`.
 
 ## Project Structure
